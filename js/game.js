@@ -1,6 +1,7 @@
 /*================
    START SCREEN
 =================*/
+//Creates Elements for the start screen and appends them to the DOM
 const startScreen = document.createElement('div');
 const startHeader = document.createElement('header');
 const gameTitle = document.createElement('h1');
@@ -16,3 +17,12 @@ startScreen.appendChild(startHeader);
 startHeader.appendChild(gameTitle);
 startHeader.appendChild(startButton);
 body.appendChild(startScreen);
+
+
+/*===========
+    START
+===========*/
+
+startButton.addEventListener('click', () => {
+  startScreen.style.display = "none";
+});
