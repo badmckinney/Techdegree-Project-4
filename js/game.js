@@ -1,7 +1,8 @@
-/*================
-   START SCREEN
-=================*/
-//Creates Elements for the start screen and appends them to the DOM
+/*=================
+   PAGE CREATION
+==================*/
+//START SCREEN
+//Creates elements for the start screen and appends them to the DOM
 const startScreen = document.createElement('div');
 const startHeader = document.createElement('header');
 const gameTitle = document.createElement('h1');
@@ -18,6 +19,28 @@ startHeader.appendChild(gameTitle);
 startHeader.appendChild(startButton);
 body.appendChild(startScreen);
 
+//GAME OVER SCREEN
+//Creates elements for the game over screen and appends them to the DOM
+//Hides the page until there is a winner or draw
+const gameOverScreen = document.createElement('div');
+const endHeader = document.createElement('header');
+const endTitle = document.createElement('h1');
+const endMessage = document.createElement('p');
+const newGameButton = document.createElement('a');
+gameOverScreen.className = "screen screen-start";
+gameOverScreen.id = "finish";
+endTitle.textContent = "Tic Tac Toe";
+endMessage.className = "message";
+newGameButton.href = "#";
+newGameButton.className = "button";
+newGameButton.textContent = "New game";
+gameOverScreen.appendChild(endHeader);
+endHeader.appendChild(endTitle);
+endHeader.appendChild(endMessage);
+endHeader.appendChild(newGameButton);
+gameOverScreen.style.display = "none";
+body.appendChild(gameOverScreen);
+
 
 /*==================
     START BUTTON
@@ -26,6 +49,7 @@ body.appendChild(startScreen);
 startButton.addEventListener('click', () => {
   startScreen.style.display = "none";
 });
+
 
 /*============
     2P GAME
@@ -80,12 +104,39 @@ const twoPlayerGame = () => {
     box.addEventListener('mouseleave', () => {
       if (event.target.className == 'box') {
           event.target.style.backgroundImage = ""
-        }
+      }
     });
-
-
-
   });
 }
 
 twoPlayerGame();
+
+
+/*=================
+    WIN ANALYZER
+==================*/
+//An array of possible win combinations
+const possibleWins = [
+  [boxes[0], boxes[1], boxes[2]],
+  [boxes[0], boxes[3], boxes[6]],
+  [boxes[0], boxes[4], boxes[8]],
+  [boxes[1], boxes[4], boxes[7]],
+  [boxes[2], boxes[4], boxes[6]],
+  [boxes[2], boxes[5], boxes[8]],
+  [boxes[3], boxes[4], boxes[5]],
+  [boxes[6], boxes[7], boxes[8]]
+];
+
+const winAnalyzer = () => {
+  possibleWins.forEach(possibility => {
+    if (possibility[0].classList.contains('box-filled-1') &&
+        possibility[1].classList.contains('box-filled-1') &&
+        possibility[2].classList.contains('box-filled-1')) {
+
+    } else if (possibility[0].classList.contains('box-filled-2') &&
+               possibility[1].classList.contains('box-filled-2') &&
+               possibility[2].classList.contains('box-filled-2')) {
+
+    }
+  });
+}
