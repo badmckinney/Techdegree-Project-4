@@ -6,17 +6,44 @@
 const startScreen = document.createElement('div');
 const startHeader = document.createElement('header');
 const gameTitle = document.createElement('h1');
-const startButton = document.createElement('a');
+const twoPlayerButton = document.createElement('a');
 const body = document.getElementsByTagName('body')[0];
+const onePlayerDiv = document.createElement('div');
+const onePlayerButton = document.createElement('a');
+const onePlayerNameDiv = document.createElement('div');
+const onePlayerNameInput = document.createElement('input');
+const p1NameDiv = document.createElement('div');
+const p2NameDiv = document.createElement('div');
+const p1NameInput = document.createElement('input');
+const p2NameInput = document.createElement('input');
+onePlayerNameInput.placeholder = "Player name"
+onePlayerNameInput.style.marginBottom = "2em";
+onePlayerNameInput.style.color = "#FFA000";
+p1NameInput.style.color = "#FFA000";
+p2NameInput.style.color = "#3688C3";
+p1NameInput.placeholder = "Player 1 name";
+p2NameInput.placeholder = "Player 2 name";
 startScreen.className = "screen screen-start";
 startScreen.id = "start";
 gameTitle.textContent = "Tic Tac Toe"
-startButton.href = "#";
-startButton.className = "button";
-startButton.textContent = "Start game";
+twoPlayerButton.href = "#";
+twoPlayerButton.className = "button";
+twoPlayerButton.textContent = "2P: Player vs. Player";
+onePlayerButton.href = "#";
+onePlayerButton.className = "button";
+onePlayerButton.textContent = "1P: Player vs. AI";
+onePlayerButton.style.marginTop = "2em";
 startScreen.appendChild(startHeader);
 startHeader.appendChild(gameTitle);
-startHeader.appendChild(startButton);
+startHeader.appendChild(twoPlayerButton);
+startHeader.insertBefore(onePlayerDiv, twoPlayerButton);
+startHeader.insertBefore(onePlayerNameDiv, twoPlayerButton);
+onePlayerNameDiv.appendChild(onePlayerNameInput);
+onePlayerDiv.appendChild(onePlayerButton);
+startHeader.appendChild(p1NameDiv);
+startHeader.appendChild(p2NameDiv);
+p1NameDiv.appendChild(p1NameInput);
+p2NameDiv.appendChild(p2NameInput);
 body.appendChild(startScreen);
 
 //GAME OVER SCREEN
@@ -42,12 +69,21 @@ gameOverScreen.style.display = "none";
 body.appendChild(gameOverScreen);
 
 
-/*==================
-    START BUTTON
-===================*/
-//When "start" button is clicked, start screen is hidden, revealing game board.
-startButton.addEventListener('click', () => {
+/*===================
+    START BUTTONS
+====================*/
+//When "start" button is clicked, start screen is hidden, revealing game board
+//Initiates 2-player game programming
+twoPlayerButton.addEventListener('click', () => {
   startScreen.style.display = "none";
+  twoPlayerPvP();
+});
+
+//When 1P: vs. AI button is clicked, start screen is hidden, revealing game board
+//Initiates 1-player game programming
+onePlayerButton.addEventListener('click', () => {
+  startScreen.style.display = "none";
+  onePlayerPvA();
 });
 
 
@@ -110,8 +146,6 @@ const twoPlayerPvP = () => {
     });
   });
 }
-
-twoPlayerPvP();
 
 
 /*=================
