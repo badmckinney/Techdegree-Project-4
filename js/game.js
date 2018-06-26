@@ -51,9 +51,9 @@ startButton.addEventListener('click', () => {
 });
 
 
-/*============
-    2P GAME
-============*/
+/*==================
+    2P GAME PvP
+==================*/
 //Variables
 //Selects all boxes on the game board
 //Sets player 1 as active for turn 1
@@ -69,7 +69,7 @@ let turns = 0;
 //Listens for clicks on each box
 //If box is not filled, it will be filled based on players turns
 //Turn counter increments and alternates players turn
-const twoPlayerGame = () => {
+const twoPlayerPvP = () => {
   boxes.forEach(box => {
     box.addEventListener('click', () => {
       if (event.target.className == 'box') {
@@ -111,7 +111,7 @@ const twoPlayerGame = () => {
   });
 }
 
-twoPlayerGame();
+twoPlayerPvP();
 
 
 /*=================
@@ -129,20 +129,55 @@ const possibleWins = [
   [boxes[6], boxes[7], boxes[8]]
 ];
 
+//Iterates over all possible wins combinations
+//Checks to see if any combination contains the same specified class, otherwise, indicates a tie
+//Edits the game over screen accordingly and displays it on the page
 const winAnalyzer = () => {
   possibleWins.forEach(possibility => {
     if (possibility[0].classList.contains('box-filled-1') &&
         possibility[1].classList.contains('box-filled-1') &&
         possibility[2].classList.contains('box-filled-1')) {
+
       gameOverScreen.classList.add("screen-win-one");
       endMessage.textContent = "Player 1 Wins!";
       gameOverScreen.style.display = "block";
+
     } else if (possibility[0].classList.contains('box-filled-2') &&
                possibility[1].classList.contains('box-filled-2') &&
                possibility[2].classList.contains('box-filled-2')) {
+
       gameOverScreen.classList.add("screen-win-two");
       endMessage.textContent = "Player 2 Wins!";
+      gameOverScreen.style.display = "block";
+
+    } else if (turns === 9 && gameOverScreen.style.display == "none") {
+
+      gameOverScreen.classList.add('screen-win-tie');
+      endMessage.textContent = "It's a draw!"
       gameOverScreen.style.display = "block";
     }
   });
 }
+
+
+/*===========
+    RESET
+============*/
+
+const reset = () => {
+  p1.classList.add('active');
+  p2.classList.remove('active');
+  startScreen.style.display = "none";
+  gameOverScreen.style.display = "none";
+  gameOverScreen.class = "screen screen-win"
+  turns = 0;
+
+  boxes.forEach(box => {
+    box.className = "box";
+    box.style.backgroundImage = "";
+  });
+}
+
+newGameButton.addEventListener('click', () => {
+  reset();
+});
