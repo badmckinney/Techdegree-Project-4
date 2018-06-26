@@ -27,7 +27,7 @@ const endHeader = document.createElement('header');
 const endTitle = document.createElement('h1');
 const endMessage = document.createElement('p');
 const newGameButton = document.createElement('a');
-gameOverScreen.className = "screen screen-start";
+gameOverScreen.className = "screen screen-win";
 gameOverScreen.id = "finish";
 endTitle.textContent = "Tic Tac Toe";
 endMessage.className = "message";
@@ -78,11 +78,13 @@ const twoPlayerGame = () => {
           p1.classList.remove('active');
           p2.classList.add('active');
           turns += 1;
+          winAnalyzer();
         } else if (turns % 2 !== 0) {
           event.target.classList.add('box-filled-2');
           p1.classList.add('active');
           p2.classList.remove('active');
           turns += 1;
+          winAnalyzer();
         }
       }
     });
@@ -132,11 +134,15 @@ const winAnalyzer = () => {
     if (possibility[0].classList.contains('box-filled-1') &&
         possibility[1].classList.contains('box-filled-1') &&
         possibility[2].classList.contains('box-filled-1')) {
-
+      gameOverScreen.classList.add("screen-win-one");
+      endMessage.textContent = "Player 1 Wins!";
+      gameOverScreen.style.display = "block";
     } else if (possibility[0].classList.contains('box-filled-2') &&
                possibility[1].classList.contains('box-filled-2') &&
                possibility[2].classList.contains('box-filled-2')) {
-
+      gameOverScreen.classList.add("screen-win-two");
+      endMessage.textContent = "Player 2 Wins!";
+      gameOverScreen.style.display = "block";
     }
   });
 }
