@@ -68,12 +68,22 @@ endHeader.appendChild(newGameButton);
 gameOverScreen.style.display = "none";
 body.appendChild(gameOverScreen);
 
+//GAME BOARD
+//Creates an element to display names
+//Appends elements to the respective player divs
+const p1 = document.getElementById('player1');
+const p2 = document.getElementById('player2');
+const p1Name = document.createElement('h3');
+const p2Name = document.createElement('h3');
+p1.appendChild(p1Name);
+p2.appendChild(p2Name);
 
 /*===================
     START BUTTONS
 ====================*/
 //When "start" button is clicked, checks to make sure required names are given
 //If names are given, start screen is hidden, revealing game board
+//Populates name elements with input from start screen
 //Initiates 2-player game programming
 twoPlayerButton.addEventListener('click', () => {
   if (p1NameInput.value == "" && p2NameInput.value == "") {
@@ -87,6 +97,8 @@ twoPlayerButton.addEventListener('click', () => {
     p2NameInput.className = "invalid";
 
   } else {
+    p1Name.textContent = p1NameInput.value;
+    p2Name.textContent = p2NameInput.value;
     startScreen.style.display = "none";
     twoPlayerPvP();
   }
@@ -94,12 +106,15 @@ twoPlayerButton.addEventListener('click', () => {
 
 //When 1P: vs. AI button is clicked, checks to make sure required name is given
 //If name is given, start screen is hidden, revealing game board
+//Populates name elements with input from start screen and array of famous AIs
 //Initiates 1-player game programming
 onePlayerButton.addEventListener('click', () => {
   if (onePlayerNameInput.value == "") {
     onePlayerNameInput.className = "invalid";
 
   } else {
+    p1Name.textContent = onePlayerNameInput.value;
+    p2Name.textContent = famousAIs[Math.floor(Math.random() * 10) + 1];
     startScreen.style.display = "none";
     onePlayerPvA();
   }
@@ -113,10 +128,9 @@ onePlayerButton.addEventListener('click', () => {
 //Selects all boxes on the game board
 //Sets player 1 as active for turn 1
 //Sets a turn counter
-const p1 = document.getElementById('player1');
-const p2 = document.getElementById('player2');
 const boxes = document.querySelectorAll('.box');
 p1.classList.add('active');
+p1Name.style.color = "#fff";
 let turns = 0;
 
 //Programming for a 2-player game
@@ -131,13 +145,17 @@ const twoPlayerPvP = () => {
         if (turns % 2 === 0) {
           event.target.classList.add('box-filled-1');
           p1.classList.remove('active');
+          p1Name.style.color = "#ccc";
           p2.classList.add('active');
+          p2Name.style.color = "#fff";
           turns += 1;
           winAnalyzer();
         } else if (turns % 2 !== 0) {
           event.target.classList.add('box-filled-2');
           p1.classList.add('active');
+          p1Name.style.color = "#fff";
           p2.classList.remove('active');
+          p2Name.style.color = "#ccc";
           turns += 1;
           winAnalyzer();
         }
@@ -192,7 +210,7 @@ const winAnalyzer = () => {
         possibility[2].classList.contains('box-filled-1')) {
 
       gameOverScreen.classList.add("screen-win-one");
-      endMessage.textContent = "Player 1 Wins!";
+      endMessage.textContent = p1Name + " Wins!";
       gameOverScreen.style.display = "block";
 
     } else if (possibility[0].classList.contains('box-filled-2') &&
@@ -200,13 +218,13 @@ const winAnalyzer = () => {
                possibility[2].classList.contains('box-filled-2')) {
 
       gameOverScreen.classList.add("screen-win-two");
-      endMessage.textContent = "Player 2 Wins!";
+      endMessage.textContent = p2Name + " Wins!";
       gameOverScreen.style.display = "block";
 
     } else if (turns === 9 && gameOverScreen.style.display == "none") {
 
       gameOverScreen.classList.add('screen-win-tie');
-      endMessage.textContent = "It's a draw!"
+      endMessage.textContent = "It's a tie!"
       gameOverScreen.style.display = "block";
     }
   });
@@ -216,10 +234,15 @@ const winAnalyzer = () => {
 /*===========
     RESET
 ============*/
-
+//Resets all default classes and styles
+//Resets turn counter
+//Iterates over all boxes and resets class names and background images
+//If game is 1P vs AI, A new AI challenger is chosen
 const reset = () => {
   p1.classList.add('active');
   p2.classList.remove('active');
+  p1Name.style.color = "#fff";
+  p2Name.style.color = "#ccc";
   startScreen.style.display = "none";
   gameOverScreen.style.display = "none";
   gameOverScreen.class = "screen screen-win"
@@ -229,8 +252,34 @@ const reset = () => {
     box.className = "box";
     box.style.backgroundImage = "";
   });
+
+  famousAIs.forEach(AI => {
+    if (p2Name == AI) {
+      p2Name = famousAIs[Math.floor(Math.random() * 10) + 1];
+    }
+  });
 }
 
+//Listens for clicks on the "new game" button
+//Calls the reset function on click
 newGameButton.addEventListener('click', () => {
   reset();
 });
+
+
+/*==================
+    1P GAME PvA
+==================*/
+//An array of AI's for potential challengers
+const famousAIs = [
+  "Skynet",
+  "Ultron Prime",
+  "J.A.R.V.I.S.",
+  "C.L.U.",
+  "Femputer",
+  "Gort",
+  "Brainiac",
+  "C3PO",
+  "Data",
+  "HAL 9000"
+];
