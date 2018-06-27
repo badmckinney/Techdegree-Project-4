@@ -72,18 +72,37 @@ body.appendChild(gameOverScreen);
 /*===================
     START BUTTONS
 ====================*/
-//When "start" button is clicked, start screen is hidden, revealing game board
+//When "start" button is clicked, checks to make sure required names are given
+//If names are given, start screen is hidden, revealing game board
 //Initiates 2-player game programming
 twoPlayerButton.addEventListener('click', () => {
-  startScreen.style.display = "none";
-  twoPlayerPvP();
+  if (p1NameInput.value == "" && p2NameInput.value == "") {
+    p1NameInput.className = "invalid";
+    p2NameInput.className = "invalid";
+
+  } else if (p1NameInput.value == "") {
+    p1NameInput.className = "invalid";
+
+  } else if (p2NameInput.value == "") {
+    p2NameInput.className = "invalid";
+
+  } else {
+    startScreen.style.display = "none";
+    twoPlayerPvP();
+  }
 });
 
-//When 1P: vs. AI button is clicked, start screen is hidden, revealing game board
+//When 1P: vs. AI button is clicked, checks to make sure required name is given
+//If name is given, start screen is hidden, revealing game board
 //Initiates 1-player game programming
 onePlayerButton.addEventListener('click', () => {
-  startScreen.style.display = "none";
-  onePlayerPvA();
+  if (onePlayerNameInput.value == "") {
+    onePlayerNameInput.className = "invalid";
+
+  } else {
+    startScreen.style.display = "none";
+    onePlayerPvA();
+  }
 });
 
 
