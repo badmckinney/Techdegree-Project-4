@@ -315,6 +315,7 @@
       availableBoxes = origBoard.filter(box => box.className === "box");
       let aiMoveIndex = Math.floor(Math.random() * availableBoxes.length);
       availableBoxes[aiMoveIndex].classList.add('box-filled-3');
+      availableBoxes[aiMoveIndex].style.content = "x";
       p1.classList.add('active');
       p1Name.style.color = "#fff";
       p2.classList.remove('active');
@@ -351,16 +352,20 @@
     //Listens for a mouse over each box
     //If the box hasn't been selected it will display the image associated with the player whose turn it is
         box.addEventListener('mouseover', () => {
-          if (event.target.className == 'box') {
-            event.target.style.backgroundImage = "url('img/o.svg')"
+          if (turns % 2 === 0) {
+            if (event.target.className == 'box') {
+              event.target.style.backgroundImage = "url('img/o.svg')";
+            }
           }
         });
 
     //Listens for a mouse to leave each box
     //Removes background image
         box.addEventListener('mouseleave', () => {
-          if (event.target.className == 'box') {
-              event.target.style.backgroundImage = ""
+          if (turns % 2 ===0) {
+            if (event.target.className == 'box') {
+                event.target.style.backgroundImage = "";
+            }
           }
         });
       });
