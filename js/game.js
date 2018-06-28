@@ -116,6 +116,7 @@ onePlayerButton.addEventListener('click', () => {
     p1Name.textContent = onePlayerNameInput.value;
     p2Name.textContent = famousAIs[Math.floor(Math.random() * 10) + 1];
     startScreen.style.display = "none";
+    p2.id = "ai";
     onePlayerPvA();
   }
 });
@@ -221,12 +222,17 @@ const winAnalyzer = () => {
       endMessage.textContent = p2Name.textContent + " Wins!";
       gameOverScreen.style.display = "block";
 
-    } else if (turns === 9 && gameOverScreen.style.display == "none") {
+    } else if (possibility[0].classList.contains('box-filled-3') &&
+               possibility[1].classList.contains('box-filled-3') &&
+               possibility[2].classList.contains('box-filled-3')) {
 
-      gameOverScreen.classList.add('screen-win-tie');
-      endMessage.textContent = "It's a tie!"
+      gameOverScreen.classList.add("screen-win-two");
+      endMessage.textContent = p2Name.textContent + " Wins!";
+      gameOverScreen.style.background = "#cc0000";
+      newGameButton.style.color = "#cc0000";
       gameOverScreen.style.display = "block";
-    } else if (availableBoxes.length == 0 && gameOverScreen.style.display == "none") {
+
+    } else if (turns === 9 && gameOverScreen.style.display == "none") {
 
       gameOverScreen.classList.add('screen-win-tie');
       endMessage.textContent = "It's a tie!"
@@ -249,7 +255,7 @@ const reset = () => {
   p2Name.style.color = "#ccc";
   startScreen.style.display = "none";
   gameOverScreen.style.display = "none";
-  gameOverScreen.class = "screen screen-win"
+  gameOverScreen.className = "screen screen-win"
   turns = 0;
 
   boxes.forEach(box => {
@@ -307,11 +313,12 @@ let availableBoxes;
 const aiTurn = () => {
   availableBoxes = origBoard.filter(box => box.className === "box");
   let aiMoveIndex = Math.floor(Math.random() * availableBoxes.length);
-  availableBoxes[aiMoveIndex].classList.add('box-filled-2');
+  availableBoxes[aiMoveIndex].classList.add('box-filled-3');
   p1.classList.add('active');
   p1Name.style.color = "#fff";
   p2.classList.remove('active');
   p2Name.style.color = "#ccc";
+  turns += 1;
   winAnalyzer();
 }
 
@@ -324,8 +331,11 @@ const onePlayerPvA = () => {
         p1Name.style.color = "#ccc";
         p2.classList.add('active');
         p2Name.style.color = "#fff";
+        turns += 1;
         winAnalyzer();
-        aiTurn();
+        if (gameOverScreen.style.display == "none") {
+          aiTurn();
+        }
       }
     });
 

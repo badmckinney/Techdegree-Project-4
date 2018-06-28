@@ -134,6 +134,8 @@ h1 {
     background: #FFA000; }
   #player2.active {
     background: #3688C3; }
+  #ai.active {
+    background: #cc0000; }
 
 .boxes {
   width: 480px;
@@ -161,6 +163,9 @@ h1 {
     .boxes .box-filled-2 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
+    .boxes .box-filled-3 {
+      background-color: #cc0000;
+      background-image: url(../img/x.svg);}
 
 .invalid {
   border-color: red;
