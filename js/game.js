@@ -116,7 +116,7 @@
 
       } else {
         p1Name.textContent = onePlayerNameInput.value;
-        p2Name.textContent = famousAIs[Math.floor(Math.random() * 10) + 1];
+        p2Name.textContent = famousAIs[Math.floor(Math.random() * famousAIs.length) + 1];
         startScreen.style.display = "none";
         p2.id = "ai";
         onePlayerPvA();
@@ -265,7 +265,7 @@
 
       famousAIs.forEach(AI => {
         if (p2Name == AI) {
-          p2Name = famousAIs[Math.floor(Math.random() * 10) + 1];
+          p2Name = famousAIs[Math.floor(Math.random() * famousAIs.length) + 1];
         }
       });
     }
@@ -283,7 +283,7 @@
     //An array of AI's for potential challengers
     const famousAIs = [
       "Skynet",
-      "Ultron Prime",
+      "Ultron",
       "J.A.R.V.I.S.",
       "C.L.U.",
       "Femputer",
@@ -291,7 +291,8 @@
       "Brainiac",
       "C3PO",
       "Data",
-      "HAL 9000"
+      "HAL 9000",
+      "Bender"
     ];
 
     //A true array of spaces on the board for AI's reference
