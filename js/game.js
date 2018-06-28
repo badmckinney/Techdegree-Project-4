@@ -1,6 +1,6 @@
-/*=================
+/*==========================================================
    PAGE CREATION
-==================*/
+===========================================================*/
 //START SCREEN
 //Creates elements for the start screen and appends them to the DOM
 const startScreen = document.createElement('div');
@@ -78,9 +78,9 @@ const p2Name = document.createElement('h3');
 p1.appendChild(p1Name);
 p2.appendChild(p2Name);
 
-/*===================
+/*===========================================================
     START BUTTONS
-====================*/
+============================================================*/
 //When "start" button is clicked, checks to make sure required names are given
 //If names are given, start screen is hidden, revealing game board
 //Populates name elements with input from start screen
@@ -121,9 +121,9 @@ onePlayerButton.addEventListener('click', () => {
 });
 
 
-/*==================
+/*===========================================================
     2P GAME PvP
-==================*/
+============================================================*/
 //Variables
 //Selects all boxes on the game board
 //Sets player 1 as active for turn 1
@@ -185,9 +185,9 @@ const twoPlayerPvP = () => {
 }
 
 
-/*=================
+/*===========================================================
     WIN ANALYZER
-==================*/
+============================================================*/
 //An array of possible win combinations
 const possibleWins = [
   [boxes[0], boxes[1], boxes[2]],
@@ -210,7 +210,7 @@ const winAnalyzer = () => {
         possibility[2].classList.contains('box-filled-1')) {
 
       gameOverScreen.classList.add("screen-win-one");
-      endMessage.textContent = p1Name + " Wins!";
+      endMessage.textContent = p1Name.textContent + " Wins!";
       gameOverScreen.style.display = "block";
 
     } else if (possibility[0].classList.contains('box-filled-2') &&
@@ -218,10 +218,15 @@ const winAnalyzer = () => {
                possibility[2].classList.contains('box-filled-2')) {
 
       gameOverScreen.classList.add("screen-win-two");
-      endMessage.textContent = p2Name + " Wins!";
+      endMessage.textContent = p2Name.textContent + " Wins!";
       gameOverScreen.style.display = "block";
 
     } else if (turns === 9 && gameOverScreen.style.display == "none") {
+
+      gameOverScreen.classList.add('screen-win-tie');
+      endMessage.textContent = "It's a tie!"
+      gameOverScreen.style.display = "block";
+    } else if (availableBoxes.length == 0 && gameOverScreen.style.display == "none") {
 
       gameOverScreen.classList.add('screen-win-tie');
       endMessage.textContent = "It's a tie!"
@@ -230,10 +235,9 @@ const winAnalyzer = () => {
   });
 }
 
-
-/*===========
+/*==========================================================
     RESET
-============*/
+==========================================================*/
 //Resets all default classes and styles
 //Resets turn counter
 //Iterates over all boxes and resets class names and background images
@@ -267,9 +271,9 @@ newGameButton.addEventListener('click', () => {
 });
 
 
-/*==================
+/*==========================================================
     1P GAME PvA
-==================*/
+==========================================================*/
 //An array of AI's for potential challengers
 const famousAIs = [
   "Skynet",
@@ -283,3 +287,62 @@ const famousAIs = [
   "Data",
   "HAL 9000"
 ];
+
+//An array of spaces on the board for AI's reference
+const origBoard = [boxes[0], boxes[1], boxes[2], boxes[3], boxes[4], boxes[5], boxes[6], boxes[7], boxes[8]];
+
+//Sets all the boxes Id's equal to their index
+for (i = 0; i < boxes.length; i += 1) {
+  boxes[i].id = i;
+}
+
+let availableBoxes;
+
+//Function that encapsulates the AIs complete turn
+//Gets a random number between 1 and the length of the original board array
+//Calls aiMove function which takes the index within the item in origBoard array thats at the index provided by aiMoveIndex variable
+//Removes chosen index from the origBoard array
+//Switches active players, along with styling
+//Analyzes board for a win
+const aiTurn = () => {
+  availableBoxes = origBoard.filter(box => box.className === "box");
+  let aiMoveIndex = Math.floor(Math.random() * availableBoxes.length);
+  availableBoxes[aiMoveIndex].classList.add('box-filled-2');
+  p1.classList.add('active');
+  p1Name.style.color = "#fff";
+  p2.classList.remove('active');
+  p2Name.style.color = "#ccc";
+  winAnalyzer();
+}
+
+const onePlayerPvA = () => {
+  boxes.forEach(box => {
+    box.addEventListener('click', () => {
+      if (event.target.className == 'box') {
+        event.target.classList.add('box-filled-1');
+        p1.classList.remove('active');
+        p1Name.style.color = "#ccc";
+        p2.classList.add('active');
+        p2Name.style.color = "#fff";
+        winAnalyzer();
+        aiTurn();
+      }
+    });
+
+//Listens for a mouse over each box
+//If the box hasn't been selected it will display the image associated with the player whose turn it is
+    box.addEventListener('mouseover', () => {
+      if (event.target.className == 'box') {
+        event.target.style.backgroundImage = "url('img/o.svg')"
+      }
+    });
+
+//Listens for a mouse to leave each box
+//Removes background image
+    box.addEventListener('mouseleave', () => {
+      if (event.target.className == 'box') {
+          event.target.style.backgroundImage = ""
+      }
+    });
+  });
+}

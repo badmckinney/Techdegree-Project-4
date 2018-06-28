@@ -104,7 +104,6 @@ h1 {
     .screen-win-two p:before {
       content: "×";
       top: 4.5rem; }
-
 .board {
   padding-top: 1em; }
   .board h1 {
