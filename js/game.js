@@ -226,10 +226,8 @@ const winAnalyzer = () => {
                possibility[1].classList.contains('box-filled-3') &&
                possibility[2].classList.contains('box-filled-3')) {
 
-      gameOverScreen.classList.add("screen-win-two");
+      gameOverScreen.classList.add("screen-win-three");
       endMessage.textContent = p2Name.textContent + " Wins!";
-      gameOverScreen.style.background = "#cc0000";
-      newGameButton.style.color = "#cc0000";
       gameOverScreen.style.display = "block";
 
     } else if (turns === 9 && gameOverScreen.style.display == "none") {

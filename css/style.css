@@ -104,6 +104,13 @@ h1 {
     .screen-win-two p:before {
       content: "×";
       top: 4.5rem; }
+  .screen-win-three {
+    background: #CC0000; }
+    .screen-win-three .button {
+      color: #CC0000; }
+    .screen-win-three p:before {
+      content: "×";
+      top: 4.5rem; }
 .board {
   padding-top: 1em; }
   .board h1 {
