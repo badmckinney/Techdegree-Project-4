@@ -307,7 +307,7 @@ let availableBoxes;
 //Calls aiMove function which takes the index within the item in origBoard array thats at the index provided by aiMoveIndex variable
 //Removes chosen index from the origBoard array
 //Switches active players, along with styling
-//Analyzes board for a win
+//Analyzes board for a win or draw
 const aiTurn = () => {
   availableBoxes = origBoard.filter(box => box.className === "box");
   let aiMoveIndex = Math.floor(Math.random() * availableBoxes.length);
@@ -320,6 +320,12 @@ const aiTurn = () => {
   winAnalyzer();
 }
 
+//Player vs AI gameplay function
+//Iterates over all boxes and listens for clicks on each box
+//If a box that hasn't been selected is clicked, its marked for Player and active player is switched, along with stylings
+//Turns counter increments
+//Analyzes for a win or draw
+//If the game hasn't ended, aiTurn function is called, which is delayed randomly for a duration of 1-3 seconds.
 const onePlayerPvA = () => {
   boxes.forEach(box => {
     box.addEventListener('click', () => {
