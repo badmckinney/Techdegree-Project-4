@@ -333,15 +333,17 @@
       boxes.forEach(box => {
         box.addEventListener('click', () => {
           if (event.target.className == 'box') {
-            event.target.classList.add('box-filled-1');
-            p1.classList.remove('active');
-            p1Name.style.color = "#ccc";
-            p2.classList.add('active');
-            p2Name.style.color = "#fff";
-            turns += 1;
-            winAnalyzer()
-            if (gameOverScreen.style.display == "none") {
-              setTimeout(aiTurn, Math.floor((Math.random() * 3) * 1000));
+            if (turns % 2 === 0) {
+              event.target.classList.add('box-filled-1');
+              p1.classList.remove('active');
+              p1Name.style.color = "#ccc";
+              p2.classList.add('active');
+              p2Name.style.color = "#fff";
+              turns += 1;
+              winAnalyzer()
+              if (gameOverScreen.style.display == "none") {
+                setTimeout(aiTurn, Math.floor((Math.random() * 3) * 1000));
+              }
             }
           }
         });
