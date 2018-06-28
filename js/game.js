@@ -294,7 +294,7 @@
       "HAL 9000"
     ];
 
-    //An array of spaces on the board for AI's reference
+    //A true array of spaces on the board for AI's reference
     const origBoard = [boxes[0], boxes[1], boxes[2], boxes[3], boxes[4], boxes[5], boxes[6], boxes[7], boxes[8]];
 
     //Sets all the boxes Id's equal to their index
@@ -305,10 +305,11 @@
     let availableBoxes;
 
     //Function that encapsulates the AIs complete turn
-    //Gets a random number between 1 and the length of the original board array
-    //Calls aiMove function which takes the index within the item in origBoard array thats at the index provided by aiMoveIndex variable
-    //Removes chosen index from the origBoard array
+    //Updates the availableBoxes array by filtering out all selected boxes in origBoard array
+    //Randomly generates a number between 0 and the number of available boxes
+    //Uses the random number as an index for the AIs box choice
     //Switches active players, along with styling
+    //Turn counter increments
     //Analyzes board for a win or draw
     const aiTurn = () => {
       availableBoxes = origBoard.filter(box => box.className === "box");
@@ -325,7 +326,7 @@
     //Player vs AI gameplay function
     //Iterates over all boxes and listens for clicks on each box
     //If a box that hasn't been selected is clicked, its marked for Player and active player is switched, along with stylings
-    //Turns counter increments
+    //Turn counter increments
     //Analyzes for a win or draw
     //If the game hasn't ended, aiTurn function is called, which is delayed randomly for a duration of 1-3 seconds.
     const onePlayerPvA = () => {
@@ -365,4 +366,4 @@
   };
 
   ticTacToe();
-}();  
+}();
