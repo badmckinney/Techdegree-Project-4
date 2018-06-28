@@ -330,9 +330,9 @@ const onePlayerPvA = () => {
         p2.classList.add('active');
         p2Name.style.color = "#fff";
         turns += 1;
-        winAnalyzer();
+        winAnalyzer()
         if (gameOverScreen.style.display == "none") {
-          aiTurn();
+          setTimeout(aiTurn, Math.floor((Math.random() * 3) * 1000));
         }
       }
     });
