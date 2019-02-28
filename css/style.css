@@ -67,11 +67,11 @@ h1 {
   .screen h1 {
     color: #fff; }
   .screen-start {
-    background: #54D17A; }
+    background: #29C5FF; }
     .screen-start h1 {
       font-size: 6em; }
     .screen-start .button {
-      color: #54D17A; }
+      color: #29C5FF; }
     .screen-start h1 + .button {
       margin-top: 5em; }
   .screen-win p {
@@ -89,7 +89,7 @@ h1 {
       line-height: 0;
       z-index: -1; }
   .screen-win-tie {
-    background: #54D17A; }
+    background: #29C5FF; }
   .screen-win-one {
     background: #FFA000; }
     .screen-win-one .button {
