@@ -6,6 +6,10 @@ A Tic-Tac-Toe web application written in pure vanilla Javascript. Can you manage
 
 - Supports 1P or 2P games
 
+## How to play?
+
+You can play a demo-version here: eager-goldstine-5117ea.netlify.com
+
 ## Screenshots
 
 ![Game Board](./screenshots/game-board.png "Game Board")
