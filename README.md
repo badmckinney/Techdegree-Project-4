@@ -8,7 +8,7 @@ A Tic-Tac-Toe web application written in pure vanilla Javascript. Can you manage
 
 ## How to play?
 
-You can play a demo-version here: <eager-goldstine-5117ea.netlify.com>
+You can play a demo-version here: [Game Demo](eager-goldstine-5117ea.netlify.com)
 
 ## Screenshots
 
